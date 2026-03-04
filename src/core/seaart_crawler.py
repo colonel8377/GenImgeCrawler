@@ -37,7 +37,7 @@ class SeaArtCrawler(BaseApiCrawler):
             "Referer": "https://www.seaart.ai/models"
         }
 
-        self.page_size = 25
+        self.page_size = 24
 
     async def _fetch_page(self, session: aiohttp.ClientSession, page: int) -> Optional[Dict]:
         """POST 请求获取数据"""
@@ -72,12 +72,12 @@ class SeaArtCrawler(BaseApiCrawler):
                     if resp.status in [403, 429]:
                         logger.warning(f"反爬 {resp.status} (Page {page}) - 切换节点...")
                         self.proxy_manager.switch_node()  # 已修复 await
-                        await asyncio.sleep(1)
+                        # await asyncio.sleep(1)
 
             except Exception as e:
                 logger.warning(f"请求异常 (Page {page}): {e}")
                 self.proxy_manager.switch_node()  # 已修复 await
-                await asyncio.sleep(1)
+                # await asyncio.sleep(1)
 
         return None
 
@@ -140,7 +140,6 @@ class SeaArtCrawler(BaseApiCrawler):
                     break
 
                 current_page += 1
-                await asyncio.sleep(random.uniform(1.0, 2.0))
 
 
 if __name__ == "__main__":

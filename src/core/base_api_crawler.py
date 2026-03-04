@@ -36,10 +36,10 @@ class BaseApiCrawler(ABC):
         self.proxy_host = proxy_host or ProxyConfig.host
         self.proxy_port = proxy_port or ProxyConfig.port
         
-        # 初始化管理器
-        switch_url = switch_api_url or ProxyConfig.switch_api_url
-        proxy_group = ProxyConfig.proxy_group
-        self.proxy_manager = ProxyNodeManager()
+
+        self.proxy_manager = ProxyNodeManager(base_api_url="http://UFLJGXH3:5967CBD8CCE2@overseas.tunnel.qg.net", proxy_port=10911)
+        # self.proxy_manager = ProxyNodeManager()
+
         self.db_manager = None
         
         # 反爬虫管理器
